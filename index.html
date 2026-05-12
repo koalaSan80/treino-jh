@@ -380,6 +380,45 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
 
   
 
+
+  /* ── TREINO LIVRE ── */
+  .livre-form { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px; margin-bottom:20px; }
+  .livre-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+  .livre-row-full { margin-bottom:10px; }
+  .livre-lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
+  .livre-input {
+    width:100%; background:rgba(255,255,255,.05); border:1px solid var(--border);
+    border-radius:10px; padding:10px 12px; color:var(--text); font-size:13px;
+    font-family:var(--font); outline:none; transition:border-color .15s; box-sizing:border-box;
+  }
+  .livre-input:focus { border-color:rgba(14,184,154,.5); }
+  .livre-input::placeholder { color:var(--muted); }
+  .livre-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .livre-tag {
+    padding:5px 12px; border-radius:20px; border:1.5px solid var(--border);
+    font-size:12px; font-weight:500; cursor:pointer; transition:all .15s; color:var(--muted);
+  }
+  .livre-tag:hover { border-color:rgba(14,184,154,.4); color:var(--teal); }
+  .livre-tag.sel { background:rgba(14,184,154,.12); border-color:var(--teal); color:var(--teal); }
+  .livre-save-btn {
+    width:100%; padding:13px; border-radius:12px; border:none; background:var(--teal);
+    color:#fff; font-size:14px; font-weight:700; cursor:pointer; margin-top:4px;
+  }
+  .livre-save-btn:hover { background:#0da085; }
+  .livre-list { display:flex; flex-direction:column; gap:10px; }
+  .livre-item {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:14px 16px; display:flex; align-items:flex-start; gap:12px;
+  }
+  .livre-item-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .livre-item-body { flex:1; }
+  .livre-item-title { font-size:14px; font-weight:500; margin-bottom:3px; }
+  .livre-item-meta { font-size:11px; color:var(--muted); margin-bottom:4px; }
+  .livre-item-note { font-size:12px; color:#8b9ab0; line-height:1.5; }
+  .livre-item-del { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:2px; flex-shrink:0; }
+  .livre-item-del:hover { color:#f87171; }
+  .livre-empty { text-align:center; padding:30px; color:var(--muted); font-size:13px; }
+
 </style>
 </head>
 <body>
@@ -387,7 +426,7 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
 <div class="header">
   <div class="header-inner">
     <div class="logo">TREINO<span>JH</span></div>
-    <div class="week-badge">45 anos · 83,4kg · Meta: −9,8kg</div>
+    <div class="week-badge">45 anos · 82,0kg · -1,4kg ✅</div>
   </div>
 </div>
 
@@ -402,6 +441,7 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
     <button class="nav-btn" onclick="show('nut',this)">🥗 Nutrição</button>
     <button class="nav-btn" onclick="show('evo',this)">📈 Evolução</button>
     <button class="nav-btn" onclick="show('remind',this)">🔔 Lembretes</button>
+    <button class="nav-btn" onclick="show('livre',this)">✏️ Treino Livre</button>
   </div>
 </div>
 
@@ -414,24 +454,24 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
 
   <div class="profile-banner">
     <div class="stat-box">
-      <div class="stat-val" style="color:var(--red)">83,4</div>
+      <div class="stat-val" style="color:var(--red)">82,0</div>
       <div class="stat-lbl">Peso atual (kg)</div>
-      <div class="stat-sub">Meta: 73,6 kg</div>
+      <div class="stat-sub">Meta: 73,6 kg · ✅ -1,4kg</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val" style="color:var(--orange)">25%</div>
+      <div class="stat-val" style="color:var(--orange)">22%</div>
       <div class="stat-lbl">Gordura corporal</div>
-      <div class="stat-sub">Meta: ~15%</div>
+      <div class="stat-sub">Meta: ~15% · ✅ -3%</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val" style="color:var(--teal)">35,2</div>
+      <div class="stat-val" style="color:var(--teal)">36,7</div>
       <div class="stat-lbl">Massa muscular (kg)</div>
-      <div class="stat-sub">Meta: ≥ 36 kg</div>
+      <div class="stat-sub">Meta: ≥ 36 kg · ✅ +1,5kg</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val" style="color:var(--green)">73</div>
-      <div class="stat-lbl">Score InBody</div>
-      <div class="stat-sub">/100 pontos</div>
+      <div class="stat-val" style="color:var(--green)">VO₂</div>
+      <div class="stat-lbl">46 ml/kg/min</div>
+      <div class="stat-sub">Classificação: Boa 💪</div>
     </div>
   </div>
 
@@ -440,26 +480,26 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
     <div class="progress-item">
       <div class="prog-label">Peso · 83,4 → 73,6 kg</div>
       <div class="prog-row">
-        <span class="prog-current">0 kg perdidos</span>
+        <span class="prog-current">✅ 1,4 kg perdidos</span>
         <span class="prog-target">−9,8 kg</span>
       </div>
-      <div class="prog-bar"><div class="prog-fill" style="width:2%;background:var(--red)"></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:14%;background:var(--red)"></div></div>
     </div>
     <div class="progress-item">
       <div class="prog-label">% Gordura · 25% → 15%</div>
       <div class="prog-row">
-        <span class="prog-current">25%</span>
+        <span class="prog-current">22% ✅</span>
         <span class="prog-target">Meta 15%</span>
       </div>
-      <div class="prog-bar"><div class="prog-fill" style="width:5%;background:var(--orange)"></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:30%;background:var(--orange)"></div></div>
     </div>
     <div class="progress-item">
       <div class="prog-label">Massa muscular · 35,2 → 36 kg</div>
       <div class="prog-row">
-        <span class="prog-current">35,2 kg</span>
+        <span class="prog-current">36,7 kg ✅</span>
         <span class="prog-target">36 kg</span>
       </div>
-      <div class="prog-bar"><div class="prog-fill" style="width:78%;background:var(--teal)"></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--teal)"></div></div>
     </div>
     <div class="progress-item">
       <div class="prog-label">Gordura visceral · Nível 8 → 5</div>
@@ -505,25 +545,40 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
 
   <div class="section-title">Alerta InBody — pontos críticos</div>
   <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
+    <!-- COMPARATIVO -->
+    <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <div style="font-size:20px">🏆</div>
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Excelente progresso em 6 semanas!</div>
+        <div style="font-size:11px;color:var(--muted)">-1,4 kg peso · -3,14 kg gordura · +1,74 kg músculo · -3% PGC</div>
+      </div>
+    </div>
     <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
       <div style="font-size:20px">🔴</div>
       <div>
-        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Gordura no tronco — 243% acima do ideal</div>
-        <div style="font-size:11px;color:var(--muted)">Prioridade máxima · HIIT + exercícios de core específicos</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Flexibilidade ruim — prioridade!</div>
+        <div style="font-size:11px;color:var(--muted)">Teste dedão ao solo: 32 cm · Incluir alongamento diário da cadeia posterior</div>
       </div>
     </div>
     <div style="background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
-      <div style="font-size:20px">🟡</div>
+      <div style="font-size:20px">⚠️</div>
       <div>
-        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Gordura visceral nível 8 — atenção!</div>
-        <div style="font-size:11px;color:var(--muted)">Zona de risco metabólico · Déficit calórico + cardio zona 2</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Déficit de força nos membros inferiores</div>
+        <div style="font-size:11px;color:var(--muted)">Assimetria bilateral detectada · Foco em unilaterais: Lunge e Búlgaro</div>
       </div>
     </div>
     <div style="background:rgba(14,184,154,0.07);border:1px solid rgba(14,184,154,0.2);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
-      <div style="font-size:20px">🟢</div>
+      <div style="font-size:20px">✅</div>
       <div>
-        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Massa muscular dentro do normal — manter!</div>
-        <div style="font-size:11px;color:var(--muted)">35,2 kg de músculo · Proteína alta + progressão de cargas</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Força membros superiores — Excelente!</div>
+        <div style="font-size:11px;color:var(--muted)">VO₂ máx 46 ml/kg/min · Classificação Boa · Manter progressão</div>
+      </div>
+    </div>
+    <div style="background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <div style="font-size:20px">💊</div>
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">Mounjaro em uso — monitore a perda muscular</div>
+        <div style="font-size:11px;color:var(--muted)">Proteína alta (≥183g/dia) é ainda mais crítica · Reavaliação em 6 semanas</div>
       </div>
     </div>
   </div>
@@ -563,6 +618,8 @@ body { background: var(--navy); color: var(--text); font-family: var(--font); mi
 
 <!-- ══ LEMBRETES ══ -->
 <div class="pane" id="pane-remind"></div>
+
+<div class="pane" id="pane-livre"></div>
 
 </div><!-- /main -->
 
@@ -716,14 +773,18 @@ const TREINOS = {
 };
 
 const INBODY_DATA = [
-  {ind:'Peso total', atual:'83,4 kg', normal:'59,2–80,2 kg', meta:'73,6 kg', status:'⚠️ Acima', color:'#fbbf24'},
-  {ind:'Massa de gordura', atual:'20,8 kg', normal:'8,4–16,7 kg', meta:'~11 kg', status:'🔴 Alto', color:'#f87171'},
-  {ind:'% Gordura (PGC)', atual:'25%', normal:'10–20%', meta:'~15%', status:'🔴 Alto', color:'#f87171'},
-  {ind:'Massa musc. esq.', atual:'35,2 kg', normal:'29,9–36,5 kg', meta:'≥ 36 kg', status:'✅ Normal', color:'#4ade80'},
-  {ind:'Massa magra', atual:'62,6 kg', normal:'53,3–65,2 kg', meta:'62,6 kg+', status:'✅ Normal', color:'#4ade80'},
-  {ind:'Gordura visceral', atual:'Nível 8', normal:'1–9', meta:'≤ Nível 5', status:'⚠️ Atenção', color:'#fbbf24'},
-  {ind:'TMB', atual:'1.721 kcal', normal:'1.748–2.054', meta:'Manter', status:'✅ Normal', color:'#4ade80'},
-  {ind:'Relação Cintura/Quadril', atual:'0,88', normal:'0,80–0,90', meta:'< 0,85', status:'⚠️ Limiar', color:'#fbbf24'},
+  {ind:'Peso total', atual:'82,0 kg ↓', normal:'59,2–80,2 kg', meta:'73,6 kg', status:'✅ -1,4kg', color:'#4ade80'},
+  {ind:'Massa de gordura', atual:'17,66 kg ↓', normal:'8,4–16,7 kg', meta:'~11 kg', status:'✅ -3,14kg', color:'#4ade80'},
+  {ind:'% Gordura (PGC)', atual:'22% ↓', normal:'10–20%', meta:'~15%', status:'⚠️ Melhorou', color:'#fbbf24'},
+  {ind:'Massa magra/músculo', atual:'64,34 kg ↑', normal:'53,3–65,2 kg', meta:'≥ 65 kg', status:'✅ +1,74kg', color:'#4ade80'},
+  {ind:'IMC', atual:'25,5 ↓', normal:'18,5–24,9', meta:'< 25', status:'⚠️ -0,8', color:'#fbbf24'},
+  {ind:'Cintura abdominal', atual:'93 cm', normal:'< 94 cm', meta:'< 90 cm', status:'⚠️ Atenção', color:'#fbbf24'},
+  {ind:'FC Limiar 1 (L1)', atual:'130 bpm', normal:'—', meta:'Cardio Zona 2', status:'✅ Calibrado', color:'#4ade80'},
+  {ind:'FC Limiar 2 (L2)', atual:'165 bpm', normal:'—', meta:'Zona HIIT', status:'✅ Calibrado', color:'#4ade80'},
+  {ind:'VO₂ máx', atual:'46 ml/kg/min', normal:'> 42', meta:'> 50', status:'✅ Boa', color:'#4ade80'},
+  {ind:'Flexibilidade', atual:'32 cm (dedão)', normal:'> 0 cm', meta:'> 20 cm', status:'🔴 Ruim', color:'#f87171'},
+  {ind:'Força membros inf.', atual:'Déficit bilateral', normal:'Simétrica', meta:'Equilíbrio', status:'⚠️ Atenção', color:'#fbbf24'},
+  {ind:'Força membros sup.', atual:'Excelente', normal:'—', meta:'Manter', status:'✅ Excelente', color:'#4ade80'},
 ];
 
 const MEALS = [
@@ -1299,6 +1360,7 @@ function show(id, btn) {
   if (id === 'cal') buildCalendar();
   if (id === 'evo') buildEvoPane();
   if (id === 'remind') buildRemindPane();
+  if (id === 'livre') buildLivrePane();
 }
 
 
@@ -1773,9 +1835,154 @@ function scheduleReminders() {
 }
 
 
+
+// ══════════════════════════════
+// TREINO LIVRE
+// ══════════════════════════════
+const LIVRE_TYPES = [
+  { icon:'🏃', label:'Corrida'       },
+  { icon:'🚶', label:'Caminhada'     },
+  { icon:'🚴', label:'Bicicleta'     },
+  { icon:'🏊', label:'Natação'       },
+  { icon:'⚽', label:'Futebol'       },
+  { icon:'🎾', label:'Tênis'         },
+  { icon:'🧘', label:'Yoga/Pilates'  },
+  { icon:'🏋️', label:'Musculação'    },
+  { icon:'🥊', label:'Luta/Boxe'     },
+  { icon:'🛹', label:'Outro'         },
+];
+
+let livreTypeSelected = null;
+
+function buildLivrePane() {
+  const pane = document.getElementById('pane-livre');
+  if (!pane) return;
+  const d = load();
+  const items = (d.livreLog || []).slice().reverse();
+
+  const tags = LIVRE_TYPES.map((t,i) =>
+    `<div class="livre-tag${livreTypeSelected===i?' sel':''}" onclick="selLivreType(${i})">${t.icon} ${t.label}</div>`
+  ).join('');
+
+  const list = items.length ? items.map((item, idx) => {
+    const realIdx = (d.livreLog||[]).length - 1 - idx;
+    const [y,m,day] = item.date.split('-');
+    const meta = [
+      item.duration ? `⏱ ${item.duration}` : '',
+      item.distance ? `📏 ${item.distance}` : '',
+      item.calories ? `🔥 ${item.calories} kcal` : '',
+    ].filter(Boolean).join('  ·  ');
+    return `
+      <div class="livre-item">
+        <div class="livre-item-icon">${item.icon}</div>
+        <div class="livre-item-body">
+          <div class="livre-item-title">${item.type}</div>
+          <div class="livre-item-meta">${day}/${m}/${y}${meta ? '  ·  ' + meta : ''}</div>
+          ${item.note ? `<div class="livre-item-note">${item.note}</div>` : ''}
+        </div>
+        <button class="livre-item-del" onclick="deleteLivre(${realIdx})">🗑</button>
+      </div>`;
+  }).join('') : `<div class="livre-empty">Nenhuma atividade registrada ainda</div>`;
+
+  pane.innerHTML = `
+    <div class="main" style="padding-top:8px">
+      <div class="section-title">Registrar atividade</div>
+      <div class="livre-form">
+        <div class="livre-row-full">
+          <div class="livre-lbl">Tipo de atividade</div>
+          <div class="livre-tags">${tags}</div>
+        </div>
+        <div class="livre-row">
+          <div>
+            <div class="livre-lbl">Data</div>
+            <input class="livre-input" id="livre-date" type="date" value="${new Date().toISOString().slice(0,10)}">
+          </div>
+          <div>
+            <div class="livre-lbl">Duração</div>
+            <input class="livre-input" id="livre-duration" type="text" placeholder="ex: 40 min">
+          </div>
+        </div>
+        <div class="livre-row">
+          <div>
+            <div class="livre-lbl">Distância / Detalhes</div>
+            <input class="livre-input" id="livre-distance" type="text" placeholder="ex: 5 km · 8% inclinação">
+          </div>
+          <div>
+            <div class="livre-lbl">Calorias (opcional)</div>
+            <input class="livre-input" id="livre-calories" type="number" placeholder="kcal">
+          </div>
+        </div>
+        <div class="livre-row-full">
+          <div class="livre-lbl">Observações</div>
+          <textarea class="livre-input" id="livre-note" rows="2" placeholder="ex: 5 min esteira 8% inclinação a 5 km/h + 40 min bike ergométrica"></textarea>
+        </div>
+        <button class="livre-save-btn" onclick="saveLivre()">✓ Registrar atividade</button>
+      </div>
+
+      <div class="section-title">Histórico de atividades</div>
+      <div class="livre-list">${list}</div>
+    </div>
+  `;
+}
+
+function selLivreType(i) {
+  livreTypeSelected = i;
+  buildLivrePane();
+  // Restore form values after rebuild
+  const dateEl = document.getElementById('livre-date');
+  if (dateEl) dateEl.value = new Date().toISOString().slice(0,10);
+}
+
+function saveLivre() {
+  const date     = document.getElementById('livre-date')?.value || new Date().toISOString().slice(0,10);
+  const duration = document.getElementById('livre-duration')?.value.trim() || '';
+  const distance = document.getElementById('livre-distance')?.value.trim() || '';
+  const calories = document.getElementById('livre-calories')?.value.trim() || '';
+  const note     = document.getElementById('livre-note')?.value.trim() || '';
+
+  const typeObj = livreTypeSelected !== null ? LIVRE_TYPES[livreTypeSelected] : { icon:'🏃', label:'Atividade' };
+
+  if (!duration && !distance && !note) {
+    alert('Preencha pelo menos a duração ou uma descrição!');
+    return;
+  }
+
+  const d = load(); d.livreLog = d.livreLog || [];
+  d.livreLog.push({
+    date, icon: typeObj.icon, type: typeObj.label,
+    duration, distance, calories, note,
+    createdAt: new Date().toISOString()
+  });
+  save(d);
+  livreTypeSelected = null;
+
+  // Also log on calendar as 'cardio' if not already logged
+  d.logs = d.logs || {};
+  if (!d.logs[date]) {
+    d.logs[date] = 'cardio';
+    save(d);
+  }
+
+  // Toast
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1C2128;border:2px solid var(--teal);border-radius:12px;padding:12px 20px;font-size:13px;font-weight:600;color:#fff;z-index:800;white-space:nowrap;animation:fadeIn .3s ease';
+  t.textContent = `${typeObj.icon} Atividade registrada no calendário!`;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .4s'; setTimeout(()=>t.remove(),400); }, 2500);
+
+  buildLivrePane();
+}
+
+function deleteLivre(idx) {
+  const d = load();
+  d.livreLog.splice(idx, 1);
+  save(d);
+  buildLivrePane();
+}
+
 setTimeout(initChecks, 400);
 // Pre-build evo pane on load
-setTimeout(()=>{ buildEvoPane(); buildRemindPane(); }, 200);
+setTimeout(()=>{ buildEvoPane(); buildRemindPane(); buildLivrePane(); }, 200);
 
 </script>
 
